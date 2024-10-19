@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% if css == "index" %}
+        <link href="{{ url_for('static', filename='index.css') }}" rel="stylesheet" type="text/css">
+    {% elif css == "careers" %}
+        <link href="{{ url_for('static', filename='careers.css') }}" rel="stylesheet" type="text/css">
+    {% elif css == "contact" %}
+        <link href="{{ url_for('static', filename='email.css') }}" rel="stylesheet" type="text/css">
+    {% endif %}
+
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>나의 홈페이지</title>
+    {% endif %}
+
+    <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-gothic.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/d4b075a1bc.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="{{ url_for('careers') }}"><i class="fa-solid fa-person"></i> About me</a>
+        <a href="{{ url_for('contact') }}"><i class="fa-solid fa-envelope"></i> Contact</a>
+    </nav>
+    <main role="main">
+    <!-- Main content block -->
+    {% block content %}
+    {% endblock %}
+    </main>
+</body>
+</html>
