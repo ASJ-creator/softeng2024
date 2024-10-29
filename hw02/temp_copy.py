@@ -1,10 +1,13 @@
-def f2c(temp_f: float) -> float:
-    return (temp_f - 32) * 5 / 9
+def f2c(f):
+    return (f-32)*5/9
+
+def c2f(c):
+    return c*9/5+32
 
 def main():
     temp_f = 75
     temp_c = f2c(temp_f)
-    print(f"{temp_f}F => {temp_c:.1f}C")
+    print(f"temp_f: {temp_f}, temp_c: {temp_c}")
 
     pass
 
