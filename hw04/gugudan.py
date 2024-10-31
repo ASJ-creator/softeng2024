@@ -36,9 +36,9 @@ def home():
 </html>'''
     return html_str
 
-# @app.route('/<name>')
-# def hello(name):
-#     return f'Hello, {escape(name)}!'
+@app.route('/<name>')
+#def hello(name):
+    return f'Hello, {escape(name)}!'
 
 @app.route("/dan/<dan>")
 def gugudan_html(dan):
