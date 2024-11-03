@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- 기존의 코드를 GPT에게 꾸며달라고 요청. -->
+<div class="container-md mt-5">
+    <h1 class="text-center">안녕하세요!</h1>
+    <p class="text-center">저의 홈페이지에 오신 것을 환영합니다.</p>
+
+    <section class="bg-light p-4 rounded">
+        <h2>자기소개</h2>
+        <hr>
+        <p>
+            안녕하세요.<br>
+            저는 <strong>2027년 2월</strong>에 졸업 예정인 학생입니다.<br>
+            현재는 <em>웹 프로그래밍</em>을 공부하고 있습니다.
+        </p>
+    </section>
+
+    <footer class="text-center mt-5">
+        &copy; 2024 나의 자기소개 페이지
+    </footer>
+</div>
+{% endblock %}
