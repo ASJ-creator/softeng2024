@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <!-- Post Title -->
+    <h1 class="display-4 text-primary">{{ post.title }}</h1>
+    <hr class="my-4">
+
+    <!-- Post Meta Info -->
+    <p class="text-muted mb-0">게시일: {{ post.created_at }}</p>
+    <p class="text-muted">수정일: {{ post.updated_at }}</p>
+
+    <!-- Post Content -->
+    <div class="content lead">
+        <p>{{ post.content }}</p>
+    </div>
+    <hr class="my-4">
+
+    <!-- Comment Section -->
+    <div class="mt-5">
+        <h4 class="text-secondary">댓글</h4>
+        <p class="text-muted">댓글 자리</p>
+    </div>
+</div>
+{% endblock %}

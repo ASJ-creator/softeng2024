@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+<div class="container-md mt-5">
+    <header class="text-center mb-4">
+        <h1>Send Email</h1>
+        <p>저에게 이메일을 보낼 수 있는 페이지입니다.</p>
+    </header>
+
+    <section class="bg-light p-5 rounded shadow-lg">
+        <form action="mailto:dlgusxo2005@gmail.com" method="post" enctype="text/plain">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="message" class="form-label">Messages</label>
+                <textarea id="message" name="message" class="form-control" rows="6" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">이메일 보내기</button>
+        </form>
+    </section>
+
+    <footer class="text-center mt-5">
+        &copy; 2024 나의 이메일 페이지
+    </footer>
+</div>
+{% endblock %}
