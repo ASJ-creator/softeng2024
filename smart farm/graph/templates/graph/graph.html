@@ -1,0 +1,100 @@
+<!-- templates/graph/graph.html -->
+{% extends 'graph/base.html' %}
+
+{% block extra_head %}
+<style>
+.chart-container {
+    width: 100%;
+    height: 400px;
+    margin: 20px 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">실시간 센서 데이터</h2>
+    <div class="chart-container">
+        <canvas id="sensorChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// 초기 데이터 및 컬럼 파싱
+const initialData = JSON.parse('{{ initial_data|safe }}');
+const columns = JSON.parse('{{ columns|safe }}');
+
+// 차트 색상 설정
+const colors = [
+    'rgb(192,75,93)',
+    'rgb(75,77,192)',
+    'rgb(75,192,192)',
+    'rgb(75,192,94)'
+];
+
+// 데이터셋 생성
+const datasets = columns.slice(1).map((column, index) => ({
+    label: column,
+    data: initialData.map(row => row[column]),
+    borderColor: colors[index],
+    tension: 0.1,
+    fill: false
+}));
+
+// 차트 설정
+const ctx = document.getElementById('sensorChart').getContext('2d');
+const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: initialData.map(row => row[columns[0]]), // timestamp는 첫 번째 컬럼
+        datasets: datasets
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: '값'
+                }
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: '시간'
+                }
+            }
+        },
+        animation: {
+            duration: 0 // 애니메이션 비활성화
+        }
+    }
+});
+
+// 실시간 데이터 업데이트 함수
+function updateChart() {
+    fetch('/graph/update-data/')
+        .then(response => response.json())
+        .then(jsonData => {
+            if (jsonData.data && jsonData.data.length > 0) {
+                // 레이블(시간) 업데이트
+                chart.data.labels = jsonData.data.map(row => row[columns[0]]);
+
+                // 각 데이터셋 업데이트
+                columns.slice(1).forEach((column, index) => {
+                    chart.data.datasets[index].data = jsonData.data.map(row => row[column]);
+                });
+
+                chart.update('none');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// 1초마다 데이터 업데이트
+setInterval(updateChart, 1000);
+</script>
+{% endblock %}
